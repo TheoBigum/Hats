@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        h1 {}
+
+        h2 {}
+
+        h3 {}
+
         body {
             background-color: #f0f2f1;
             margin: 0px;
@@ -87,12 +93,13 @@
         }
 
         button {
-            width: 100%;
+            /*            width: 100%;*/
             height: 25px;
-            width: 100px;
+            width: 150px;
             color: white;
             background-color: rgba(109, 6, 14, 0.8);
             border: 0;
+            margin: 0 5px;
         }
 
 
@@ -102,7 +109,7 @@
             display: inline-block;
             display: flex;
             justify-content: center;
-            justify-content: space-around;
+            /*            justify-content: space-around;*/
 
 
         }
@@ -148,6 +155,11 @@
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         }
 
+        template {
+            width: 400px;
+            background-color: aqua;
+        }
+
         article {
             background-color: white;
             width: 350px;
@@ -156,16 +168,23 @@
 
             justify-self: center;
             display: flex;
-            justify-content: space-between;
+            /*            justify-content: space-between;*/
 
         }
 
         img {
-            width: 200px;
+            width: 175px;
 
         }
 
-        .tekstboks {}
+        .textboks {
+            margin-left: 10px;
+        }
+
+        .textboks h2 {
+            margin-top: 0px;
+        }
+
     </style>
 </head>
 
@@ -182,17 +201,8 @@
 			c20.4,0,35.7-10.2,43.35-25.5L504.9,89.25c5.1-5.1,5.1-7.65,5.1-12.75c0-15.3-10.2-25.5-25.5-25.5H107.1L84.15,0H0z M408,408
 			c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S436.05,408,408,408z" />
             </svg>
-            <!--            <svg> <img class="cart" src="shopping-cart.svg" alt=""> </svg>-->
-            <!--            <img class="cart" src="shopping-cart.svg" alt="">-->
-        </div>
 
-        <!--
-        <section id="overskrifter">
-            <h1>Alle Typer</h1>
-            <h3>Alle Mærker</h3>
-            <h4>Alle Farver</h4>
-        </section>
--->
+        </div>
         <nav>
             <div class="dropdown">
                 <div class="dropdown_type">
@@ -244,7 +254,11 @@
             <img src="" alt="">
             <div class="textboks">
                 <h2></h2>
-                <p class="pris"></p>
+                <h3 class="mærke"></h3>
+                <br>
+                <p class="beskrivelse"></p>
+                <br>
+                <h3 class="pris"></h3>
             </div>
         </article>
     </template>
@@ -306,7 +320,9 @@
                     console.log("BINGO");
                     const klon = temp.cloneNode(true).content;
                     klon.querySelector("h2").textContent = hat.gsx$navn.$t;
-                    klon.querySelector("p").textContent = `${hat.gsx$pris.$t} ,-`;
+                    klon.querySelector(".mærke").textContent = hat.gsx$mærke.$t;
+                    klon.querySelector(".beskrivelse").textContent = hat.gsx$beskrivelse.$t;
+                    klon.querySelector(".pris").textContent = `${hat.gsx$pris.$t} ,-`;
                     klon.querySelector("img").src = hat.gsx$billede.$t;
                     modtagerKloner.appendChild(klon);
 
@@ -374,5 +390,8 @@
             visHatteListe();
             console.log("Farve", farve);
         }
+
     </script>
-</body></html>
+</body>
+
+</html>
