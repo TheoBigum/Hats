@@ -20,15 +20,27 @@
         .logoboks {
             background-color: #6d060e;
             padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
         }
 
         .logo {
-            height: 100%;
             max-width: 300px;
+            grid-column: 1/span 2;
 
 
-            /*            margin: 0 auto;*/
+        }
 
+        svg {
+            height: 50px;
+            grid-column: 4/span 1;
+            align-self: center;
+            justify-self: center;
+            fill: #ffffff;
+        }
+
+        svg:hover {
+            fill: #b5b5b5;
         }
 
         #overskrifter {
@@ -49,7 +61,6 @@
             grid-template-columns: repeat(3, 1fr);
             grid-auto-rows: 1fr;
             grid-gap: 10px;
-
             padding: 20px;
 
             /*            justify-content: center;*/
@@ -74,28 +85,35 @@
         }
 
         button {
-
             width: 100%;
             height: 25px;
             margin: 1px;
         }
 
-        img {
-            width: 100%;
-
-        }
 
         #modtager {
             display: grid;
-            grid-template-columns: repeat (1, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         }
 
         article {
             background-color: white;
-            width: 80%;
+            width: 350px;
             padding: 20px;
-            margin: 0 auto;
+            margin: 10px;
+
+            justify-self: center;
+            display: flex;
+            justify-content: space-between;
+
         }
+
+        img {
+            width: 200px;
+
+        }
+
+        .tekstboks {}
     </style>
 </head>
 
@@ -105,7 +123,15 @@
 
     <header>
         <div class="logoboks">
-            <img class="logo" src="Hats-Logo.svg" alt="">
+            <a href="hats.html"><img class="logo" src="Hats-Logo.svg" alt=""></a>
+            <svg viewBox="0 0 510 510">
+                <path d="M153,408c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S181.05,408,153,408z M0,0v51h51l91.8,193.8L107.1,306
+			c-2.55,7.65-5.1,17.85-5.1,25.5c0,28.05,22.95,51,51,51h306v-51H163.2c-2.55,0-5.1-2.55-5.1-5.1v-2.551l22.95-43.35h188.7
+			c20.4,0,35.7-10.2,43.35-25.5L504.9,89.25c5.1-5.1,5.1-7.65,5.1-12.75c0-15.3-10.2-25.5-25.5-25.5H107.1L84.15,0H0z M408,408
+			c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S436.05,408,408,408z" />
+            </svg>
+            <!--            <svg> <img class="cart" src="shopping-cart.svg" alt=""> </svg>-->
+            <!--            <img class="cart" src="shopping-cart.svg" alt="">-->
         </div>
 
         <!--
@@ -154,9 +180,11 @@
 
     <template>
         <article class="hat">
-            <h2></h2>
-            <p class="pris"></p>
             <img src="" alt="">
+            <div class="textboks">
+                <h2></h2>
+                <p class="pris"></p>
+            </div>
         </article>
     </template>
 
@@ -217,7 +245,7 @@
                     console.log("BINGO");
                     const klon = temp.cloneNode(true).content;
                     klon.querySelector("h2").textContent = hat.gsx$navn.$t;
-                    klon.querySelector("p").textContent = hat.gsx$pris.$t;
+                    klon.querySelector("p").textContent = `${hat.gsx$pris.$t} ,-`;
                     klon.querySelector("img").src = hat.gsx$billede.$t;
                     modtagerKloner.appendChild(klon);
 
