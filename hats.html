@@ -57,13 +57,15 @@
         }
 
         nav {
+            /*
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-auto-rows: 1fr;
             grid-gap: 10px;
+*/
             padding: 20px;
 
-            /*            justify-content: center;*/
+            /*                        justify-content: center;*/
         }
 
         #typer {
@@ -87,7 +89,57 @@
         button {
             width: 100%;
             height: 25px;
-            margin: 1px;
+            width: 100px;
+            color: white;
+            background-color: rgba(109, 6, 14, 0.8);
+            border: 0;
+        }
+
+
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            display: flex;
+            justify-content: center;
+            justify-content: space-around;
+
+
+        }
+
+        .dropdown-content_type {
+            display: none;
+            position: absolute;
+            width: 100px;
+            z-index: 1;
+
+        }
+
+        .dropdown_type:hover .dropdown-content_type {
+            display: block;
+
+        }
+
+        .dropdown-content_maerke {
+            display: none;
+            position: absolute;
+            width: 100px;
+            z-index: 1;
+        }
+
+        .dropdown_maerke:hover .dropdown-content_maerke {
+            display: block;
+        }
+
+        .dropdown-content_farve {
+            display: none;
+            position: absolute;
+            width: 100px;
+            z-index: 1;
+        }
+
+        .dropdown_farver:hover .dropdown-content_farve {
+            display: block;
         }
 
 
@@ -141,36 +193,45 @@
             <h4>Alle Farver</h4>
         </section>
 -->
-
-
         <nav>
-            <section id="typer">
-                <button class="filter valgt" data-type="begge">All Types</button>
-                <button class="filter" data-type="Cap">Caps</button>
-                <button class="filter" data-type="Hue">Beanies</button>
-            </section>
+            <div class="dropdown">
+                <div class="dropdown_type">
+                    <section id="typer">
+                        <button class="filter valgt" data-type="begge">All Types</button>
+                        <div class="dropdown-content_type">
+                            <button class="filter" data-type="Cap">Caps</button>
+                            <button class="filter" data-type="Hue">Beanies</button>
+                        </div>
+                    </section>
+                </div>
 
-            <section id="maerker">
+                <div class="dropdown_maerke">
+                    <section id="maerker">
+                        <button class="mærke valgt" data-mærke="alle">Alle Mærker</button>
+                        <div class="dropdown-content_maerke">
+                            <button class="mærke" data-mærke="Nike">Nike</button>
+                            <button class="mærke" data-mærke="Adidas">Adidas</button>
+                            <button class="mærke" data-mærke="Converse">Converse</button>
+                            <button class="mærke" data-mærke="Dickies">Dickies</button>
+                        </div>
+                    </section>
+                </div>
 
-                <button class="mærke valgt" data-mærke="alle">Alle Mærker</button>
-                <button class="mærke" data-mærke="Nike">Nike</button>
-                <button class="mærke" data-mærke="Adidas">Adidas</button>
-                <button class="mærke" data-mærke="Converse">Converse</button>
-                <button class="mærke" data-mærke="Dickies">Dickies</button>
-            </section>
-
-
-            <section id="farver">
-
-                <button class="farve valgt" data-farve="all">Alle Farver</button>
-                <button class="farve" data-farve="Black">Black</button>
-                <button class="farve" data-farve="White">White</button>
-                <button class="farve" data-farve="Red">Red</button>
-                <button class="farve" data-farve="Blue">Blue</button>
-                <button class="farve" data-farve="Grey">Grey</button>
-            </section>
-
+                <div class="dropdown_farver">
+                    <section id="farver">
+                        <button class="farve valgt" data-farve="all">Alle Farver</button>
+                        <div class="dropdown-content_farve">
+                            <button class="farve" data-farve="Black">Black</button>
+                            <button class="farve" data-farve="White">White</button>
+                            <button class="farve" data-farve="Red">Red</button>
+                            <button class="farve" data-farve="Blue">Blue</button>
+                            <button class="farve" data-farve="Grey">Grey</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </nav>
+
     </header>
 
     <main>
@@ -314,6 +375,4 @@
             console.log("Farve", farve);
         }
     </script>
-</body>
-
-</html>
+</body></html>
