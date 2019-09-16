@@ -14,14 +14,20 @@
 
         header {
             margin: 0px;
+
+        }
+
+        .logoboks {
+            background-color: #6d060e;
+            justify-content: center;
         }
 
         .logo {
-            /*            background-image: url(Hats-Logo.svg);*/
             height: 100%;
-            max-width: 500px;
-            background-color: #6d060e;
-            margin: 0 auto;
+            max-width: 300px;
+
+
+            /*            margin: 0 auto;*/
 
         }
 
@@ -90,7 +96,6 @@
             padding: 20px;
             margin: 0 auto;
         }
-
     </style>
 </head>
 
@@ -99,7 +104,9 @@
 <body>
 
     <header>
-        <img class="logo" src="Hats-Logo.svg" alt="">
+        <div class="logoboks">
+            <img class="logo" src="Hats-Logo.svg" alt="">
+        </div>
 
         <!--
         <section id="overskrifter">
@@ -178,7 +185,7 @@
         const temp = document.querySelector("template");
 
         async function getJson() {
-            console.log("HEnt Json")
+            console.log("Hent Json")
             let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1GdNJRPRinTIcTR2OzSkLfWqXqxez4Vd90IJrR0-sFxs/od6/public/values?alt=json");
             console.log("jsonData", jsonData);
             hatteListe = await jsonData.json();
@@ -278,10 +285,7 @@
             visHatteListe();
             console.log("Farve", farve);
         }
-
     </script>
-
-    github
 </body>
 
 </html>
