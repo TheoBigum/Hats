@@ -341,7 +341,6 @@
         </article>
     </template>
 
-    <!--//forsøg på popup//-->
     <div id="popup">
         <button class="luk">×</button>
         <section class="indhold">
@@ -367,24 +366,36 @@
     </footer>
 
     <script>
+        //        Sørger for at content er loaded inden siden starter op
         document.addEventListener("DOMContentLoaded", getJson);
 
+        //        Variabel der indeholder templaten/klonen
         let hatteListe = [];
+
+        //        Variabler vi benytter i vores if-sætning, for at sorteringen kan fungere
         let mærke = "Mærker"
         let type = "Type"
         let farve = "Farver"
+
+        //        Variabel der styrer hvor mange "genstande" der er i indkøbskurven
         let køb = 0;
 
+        //        Konstanter/Variabler der senere bliver benyttet til layout af klon-skabelonen
         const modtagerKloner = document.querySelector("#modtager");
         const temp = document.querySelector("template");
 
+        //        Funktion der henter data fra google spread sheet aka. Json
         async function getJson() {
             console.log("Hent Json")
             let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1GdNJRPRinTIcTR2OzSkLfWqXqxez4Vd90IJrR0-sFxs/od6/public/values?alt=json");
             console.log("jsonData", jsonData);
             hatteListe = await jsonData.json();
             console.log(hatteListe);
+
+            //            Funktion der sender en videre til selve hatte listen (contentet af hjemmesiden)
             visHatteListe();
+
+            //            Funktion der aktivere sorteringssystemet, alt efter hvilken knap der bliver trykket på
             addEventlisnersToButtons();
 
 
@@ -392,6 +403,8 @@
         }
 
         function visHatteListe() {
+
+            //            Funktion der bestemmer hvad der skal vises på siden, alt efter hvilken knap kombination der er trykket på
             console.log("VIS HATTE LISTE " + mærke + " " + type + " " + farve);
             modtagerKloner.innerHTML = "";
             hatteListe.feed.entry.forEach((hat) => {
@@ -411,6 +424,8 @@
 
                     mærke == "Mærker" && type == hat.gsx$type.$t && farve == "Farver") {
                     console.log("BINGO");
+
+                    //                    Klon-desiget/Skabelon
                     const klon = temp.cloneNode(true).content;
                     klon.querySelector("h2").textContent = hat.gsx$navn.$t;
                     klon.querySelector(".mærke").textContent = hat.gsx$mærke.$t;
@@ -419,6 +434,7 @@
                     klon.querySelector("img").src = hat.gsx$billede.$t;
                     modtagerKloner.appendChild(klon);
 
+                    //                    Funktion der aktivere popup viduet, og sender en videre til funktionen "visEnkeltHat(hat)
                     modtagerKloner.lastElementChild.querySelector(".add").addEventListener("click", () => {
                         visEnkeltHat(hat)
                     });
@@ -427,7 +443,7 @@
         }
 
 
-        //popup//
+        //Funktionen viser vores popup vindue, her tilføjes klik funktioner, og der viser en defineret tekst
         function visEnkeltHat(hat) {
 
             console.log("Click Add");
@@ -437,11 +453,8 @@
 
             document.querySelector(".enkelt_hat .tekst").textContent = `Du har tilføjet ${hat.gsx$navn.$t} til din indkøbskurv`;
 
-            //            document.querySelector(".enkelt_hat h2").textContent = hat.gsx$navn.$t;
-            //            document.querySelector(".enkelt_hat img").src = hat.gsx$billede.$t;
-            //            document.querySelector(".enkelt_hat .beskrivelse").textContent = hat.gsx$beskrivelse.$t;
-            //            document.querySelector(".enkelt_hat .pris").textContent = `${hat.gsx$pris.$t} ,-`;
 
+            //her defineres at der skal tilføjes 1, for hver gang der trykkes på "tilføj til kurv"
             køb++;
 
 
@@ -451,17 +464,20 @@
 
         }
 
+
+        //Funktionen lukker popup vinduet, ved tryk på class "add"
+
         function lukHat() {
             document.querySelector("#popup").style.display = "none";
 
             console.log("Luk Add");
 
-            //            visHatteListe();
         }
-        //forsøg på popup
 
 
 
+
+        //Funktionen gør knapperne i navigationen klikbar, og sender brugeren videre til de forskellige filtrerings funktioner
         function addEventlisnersToButtons() {
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.addEventListener("click", filtrering);
@@ -478,6 +494,8 @@
         }
 
 
+        //Funktionen filtrere på type, og tilføjer/fjerner klassen "valgt"
+
         function filtrering() {
             console.log("Click");
 
@@ -492,6 +510,8 @@
             console.log("type", type);
         }
 
+
+        //Funktionen filtrere på mærke, og tilføjer/fjerner klassen "valgt"
         function filtreringMærke() {
             console.log("Click Mærke");
 
@@ -506,6 +526,8 @@
             console.log("Mærke", mærke);
         }
 
+
+        //Funktionen filtrere på farve, og tilføjer/fjerner klassen "valgt"
         function filtreringFarve() {
             console.log("Click farve");
 
