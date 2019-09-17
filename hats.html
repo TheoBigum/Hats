@@ -5,13 +5,20 @@
     <title>Hats</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Red+Hat+Display&display=swap" rel="stylesheet">
 
     <style>
-        h1 {}
+        h1 {
+            font-family: 'Red Hat Display', sans-serif;
+        }
 
-        h2 {}
+        h2 {
+            font-family: 'Red Hat Display', sans-serif;
+        }
 
-        h3 {}
+        h3 {
+            font-family: 'Red Hat Display', sans-serif;
+        }
 
         body {
             background-color: #f0f2f1;
@@ -92,6 +99,7 @@
             grid-gap: 10px;
 */
             padding: 20px;
+
 
             /*                        justify-content: center;*/
         }
@@ -184,7 +192,7 @@
             background-color: aqua;
         }
 
-        article {
+        .hat {
             background-color: white;
             width: 350px;
             padding: 20px;
@@ -213,17 +221,51 @@
         #popup {
             position: fixed;
             top: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.73);
             display: none;
             overflow: scroll;
         }
 
         .indhold {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
             justify-content: center;
+            align-items: center;
         }
 
+        .enkelt_hat {
+            background-color: white;
+            width: 350px;
+            padding: 20px;
+        }
+
+        .tekst {
+            text-align: center;
+        }
+
+        #top_pil {
+            /*
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 4px;
+*/
+        }
+
+        #top_pil:hover {}
     </style>
 </head>
 
@@ -289,7 +331,10 @@
     <main>
         <section id="modtager"></section>
     </main>
-
+    <div id="top_pil">
+        <h3>GÅ TIL TOP</h3>
+        <a href=".logoboks"></a>
+    </div>
 
     <template>
         <article class="hat">
@@ -308,21 +353,13 @@
 
     <!--//forsøg på popup//-->
     <div id="popup">
+        <button class="luk">×</button>
         <section class="indhold">
-            <button class="luk">×</button>
             <article class="enkelt_hat">
                 <h3 class="tekst"></h3>
-
-                <!--
-                <h2 class="single_n"></h2>
-                <img src="" alt="">
-                <p class="beskrivelse"></p>
-                <p class="pris"></p>
--->
             </article>
         </section>
     </div>
-    <!--//forsøg på popup//-->
 
     <script>
         document.addEventListener("DOMContentLoaded", getJson);
@@ -477,7 +514,6 @@
             visHatteListe();
             console.log("Farve", farve);
         }
-
     </script>
 </body>
 
