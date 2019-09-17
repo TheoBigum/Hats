@@ -122,6 +122,7 @@
 
         }
 
+
         .dropdown_type:hover .dropdown-content_type {
             display: block;
 
@@ -147,6 +148,7 @@
 
         .dropdown_farver:hover .dropdown-content_farve {
             display: block;
+
         }
 
 
@@ -184,6 +186,24 @@
         .textboks h2 {
             margin-top: 0px;
         }
+
+
+        /*        forsøg på popup*/
+        #popup {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.73);
+            display: none;
+            overflow: scroll;
+        }
+
+        .indhold {
+            justify-content: center;
+        }
+
+        /*        forsøg på popup*/
 
     </style>
 </head>
@@ -263,7 +283,7 @@
         </article>
     </template>
 
-    <!--
+    <!--//forsøg på popup//-->
     <div id="popup">
         <section class="indhold">
             <button class="luk">×</button>
@@ -275,7 +295,8 @@
             </article>
         </section>
     </div>
--->
+    <!--//forsøg på popup//-->
+
     <script>
         document.addEventListener("DOMContentLoaded", getJson);
 
@@ -295,6 +316,8 @@
             console.log(hatteListe);
             visHatteListe();
             addEventlisnersToButtons();
+
+
 
         }
 
@@ -326,9 +349,31 @@
                     klon.querySelector("img").src = hat.gsx$billede.$t;
                     modtagerKloner.appendChild(klon);
 
+                    modtagerKloner.lastElementChild.addEventListener("click", () => {
+                        visEnkeltHat(hat)
+                    });
                 }
             })
         }
+
+
+        // forsøg på popup//
+        function visEnkeltHat(hat) {
+            document.querySelector("#popup").style.display = "block";
+            document.querySelector("#popup .luk").addEventListener("click", lukHat);
+
+            document.querySelector(".enkelt_hat h2").textContent = hat.gsx$navn.$t;
+            document.querySelector(".enkelt_hat img").src = hat.gsx$billede.$t;
+            document.querySelector(".enkelt_hat .beskrivelse").textContent = hat.gsx$beskrivelse.$t;
+            document.querySelector(".enkelt_hat .pris").textContent = `${hat.gsx$pris.$t} ,-`;
+        }
+
+        function lukHat() {
+            document.querySelector("#popup").style.display = "none";
+        }
+        //forsøg på popup
+
+
 
         function addEventlisnersToButtons() {
             document.querySelectorAll(".filter").forEach(elm => {
