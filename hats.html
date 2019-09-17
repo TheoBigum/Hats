@@ -37,16 +37,38 @@
 
         }
 
-        svg {
+        .basket {
             height: 50px;
             grid-column: 4/span 1;
+            /*            align-self: center;*/
+            /*            justify-content: center;*/
+            /*            justify-self: center;*/
+        }
+
+
+        svg {
+            height: 50px;
+            /*            float: right;*/
             align-self: center;
             justify-self: center;
             fill: #ffffff;
+
         }
+
 
         svg:hover {
             fill: #b5b5b5;
+        }
+
+        .antal {
+            position: absolute;
+            background-color: #ff0027;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 100%;
+            text-align: center;
+            margin-left: 35px;
         }
 
         #overskrifter {
@@ -187,7 +209,6 @@
             margin-top: 0px;
         }
 
-
         /*        forsøg på popup*/
         #popup {
             position: fixed;
@@ -203,30 +224,32 @@
             justify-content: center;
         }
 
-        /*        forsøg på popup*/
     </style>
 </head>
-
-
 
 <body>
 
     <header>
         <div class="logoboks">
             <a href="hats.html"><img class="logo" src="Hats-Logo.svg" alt=""></a>
-            <svg viewBox="0 0 510 510">
-                <path d="M153,408c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S181.05,408,153,408z M0,0v51h51l91.8,193.8L107.1,306
+
+            <div class="basket">
+                <div class="antal">0</div>
+
+                <svg viewBox="0 0 500 500">
+                    <path d="M153,408c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S181.05,408,153,408z M0,0v51h51l91.8,193.8L107.1,306
 			c-2.55,7.65-5.1,17.85-5.1,25.5c0,28.05,22.95,51,51,51h306v-51H163.2c-2.55,0-5.1-2.55-5.1-5.1v-2.551l22.95-43.35h188.7
 			c20.4,0,35.7-10.2,43.35-25.5L504.9,89.25c5.1-5.1,5.1-7.65,5.1-12.75c0-15.3-10.2-25.5-25.5-25.5H107.1L84.15,0H0z M408,408
 			c-28.05,0-51,22.95-51,51s22.95,51,51,51s51-22.95,51-51S436.05,408,408,408z" />
-            </svg>
+                </svg>
+            </div>
 
         </div>
         <nav>
             <div class="dropdown">
                 <div class="dropdown_type">
                     <section id="typer">
-                        <button class="filter valgt" data-type="begge">All Types</button>
+                        <button class="filter valgt uppermost1" data-type="Type">Type</button>
                         <div class="dropdown-content_type">
                             <button class="filter" data-type="Cap">Caps</button>
                             <button class="filter" data-type="Hue">Beanies</button>
@@ -236,7 +259,7 @@
 
                 <div class="dropdown_maerke">
                     <section id="maerker">
-                        <button class="mærke valgt uppermost" data-mærke="alle">Mærker</button>
+                        <button class="mærke valgt uppermost2" data-mærke="Mærker">Mærker</button>
                         <div class="dropdown-content_maerke">
                             <button class="mærke" data-mærke="Nike">Nike</button>
                             <button class="mærke" data-mærke="Adidas">Adidas</button>
@@ -248,7 +271,7 @@
 
                 <div class="dropdown_farver">
                     <section id="farver">
-                        <button class="farve valgt" data-farve="all">Farver</button>
+                        <button class="farve valgt uppermost3" data-farve="Farver">Farver</button>
                         <div class="dropdown-content_farve">
                             <button class="farve" data-farve="Black">Black</button>
                             <button class="farve" data-farve="White">White</button>
@@ -305,9 +328,10 @@
         document.addEventListener("DOMContentLoaded", getJson);
 
         let hatteListe = [];
-        let mærke = "alle"
-        let type = "begge"
-        let farve = "all"
+        let mærke = "Mærker"
+        let type = "Type"
+        let farve = "Farver"
+        let køb = 0;
 
         const modtagerKloner = document.querySelector("#modtager");
         const temp = document.querySelector("template");
@@ -329,21 +353,21 @@
             console.log("VIS HATTE LISTE " + mærke + " " + type + " " + farve);
             modtagerKloner.innerHTML = "";
             hatteListe.feed.entry.forEach((hat) => {
-                if (mærke == "alle" && type == "begge" && farve == "all" ||
+                if (mærke == "Mærker" && type == "Type" && farve == "Farver" ||
 
-                    mærke == "alle" && type == "begge" && farve == hat.gsx$farve.$t ||
+                    mærke == "Mærker" && type == "Type" && farve == hat.gsx$farve.$t ||
 
-                    mærke == "alle" && type == hat.gsx$type.$t && farve == hat.gsx$farve.$t ||
+                    mærke == "Mærker" && type == hat.gsx$type.$t && farve == hat.gsx$farve.$t ||
 
                     mærke == hat.gsx$mærke.$t && type == hat.gsx$type.$t && farve == hat.gsx$farve.$t ||
 
-                    mærke == hat.gsx$mærke.$t && type == hat.gsx$type.$t && farve == "all" ||
+                    mærke == hat.gsx$mærke.$t && type == hat.gsx$type.$t && farve == "Farver" ||
 
-                    mærke == hat.gsx$mærke.$t && type == "begge" && farve == "all" ||
+                    mærke == hat.gsx$mærke.$t && type == "Type" && farve == "Farver" ||
 
-                    mærke == hat.gsx$mærke.$t && type == "begge" && hat.gsx$farve.$t ||
+                    mærke == hat.gsx$mærke.$t && type == "Type" && hat.gsx$farve.$t ||
 
-                    mærke == "alle" && type == hat.gsx$type.$t && farve == "all") {
+                    mærke == "Mærker" && type == hat.gsx$type.$t && farve == "Farver") {
                     console.log("BINGO");
                     const klon = temp.cloneNode(true).content;
                     klon.querySelector("h2").textContent = hat.gsx$navn.$t;
@@ -375,6 +399,14 @@
             //            document.querySelector(".enkelt_hat img").src = hat.gsx$billede.$t;
             //            document.querySelector(".enkelt_hat .beskrivelse").textContent = hat.gsx$beskrivelse.$t;
             //            document.querySelector(".enkelt_hat .pris").textContent = `${hat.gsx$pris.$t} ,-`;
+
+            køb++;
+
+
+            document.querySelector(".antal").textContent = køb;
+
+            console.log(køb);
+
         }
 
         function lukHat() {
@@ -408,8 +440,7 @@
             console.log("Click");
 
             type = this.dataset.type;
-
-            //            document.querySelector("h1").textContent = this.textContent;
+            document.querySelector(".uppermost1").textContent = type;
 
             document.querySelectorAll(".filter").forEach((elm) => {
                 elm.classList.remove("valgt");
@@ -423,8 +454,7 @@
             console.log("Click Mærke");
 
             mærke = this.dataset.mærke;
-            document.querySelector(".uppermost").textContent = mærke;
-            //            document.querySelector("h3").textContent = this.textContent;
+            document.querySelector(".uppermost2").textContent = mærke;
 
             document.querySelectorAll(".mærke").forEach((elm) => {
                 elm.classList.remove("valgt");
@@ -438,8 +468,7 @@
             console.log("Click farve");
 
             farve = this.dataset.farve;
-
-            //            document.querySelector("h4").textContent = this.textContent;
+            document.querySelector(".uppermost3").textContent = farve;
 
             document.querySelectorAll(".farve").forEach((elm) => {
                 elm.classList.remove("valgt");
@@ -448,6 +477,7 @@
             visHatteListe();
             console.log("Farve", farve);
         }
+
     </script>
 </body>
 
