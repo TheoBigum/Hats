@@ -204,7 +204,6 @@
         }
 
         /*        forsøg på popup*/
-
     </style>
 </head>
 
@@ -237,7 +236,7 @@
 
                 <div class="dropdown_maerke">
                     <section id="maerker">
-                        <button class="mærke valgt" data-mærke="alle">Alle Mærker</button>
+                        <button class="mærke valgt uppermost" data-mærke="alle">Mærker</button>
                         <div class="dropdown-content_maerke">
                             <button class="mærke" data-mærke="Nike">Nike</button>
                             <button class="mærke" data-mærke="Adidas">Adidas</button>
@@ -249,7 +248,7 @@
 
                 <div class="dropdown_farver">
                     <section id="farver">
-                        <button class="farve valgt" data-farve="all">Alle Farver</button>
+                        <button class="farve valgt" data-farve="all">Farver</button>
                         <div class="dropdown-content_farve">
                             <button class="farve" data-farve="Black">Black</button>
                             <button class="farve" data-farve="White">White</button>
@@ -279,6 +278,7 @@
                 <p class="beskrivelse"></p>
                 <br>
                 <h3 class="pris"></h3>
+                <button class="add">Tilføj til kurv</button>
             </div>
         </article>
     </template>
@@ -288,10 +288,14 @@
         <section class="indhold">
             <button class="luk">×</button>
             <article class="enkelt_hat">
+                <h3 class="tekst"></h3>
+
+                <!--
                 <h2 class="single_n"></h2>
                 <img src="" alt="">
                 <p class="beskrivelse"></p>
                 <p class="pris"></p>
+-->
             </article>
         </section>
     </div>
@@ -322,7 +326,7 @@
         }
 
         function visHatteListe() {
-            console.log("VIS HATTE LISTe " + mærke + " " + type + " " + farve);
+            console.log("VIS HATTE LISTE " + mærke + " " + type + " " + farve);
             modtagerKloner.innerHTML = "";
             hatteListe.feed.entry.forEach((hat) => {
                 if (mærke == "alle" && type == "begge" && farve == "all" ||
@@ -349,7 +353,7 @@
                     klon.querySelector("img").src = hat.gsx$billede.$t;
                     modtagerKloner.appendChild(klon);
 
-                    modtagerKloner.lastElementChild.addEventListener("click", () => {
+                    modtagerKloner.lastElementChild.querySelector(".add").addEventListener("click", () => {
                         visEnkeltHat(hat)
                     });
                 }
@@ -357,19 +361,28 @@
         }
 
 
-        // forsøg på popup//
+        //popup//
         function visEnkeltHat(hat) {
+
+            console.log("Click Add");
+
             document.querySelector("#popup").style.display = "block";
             document.querySelector("#popup .luk").addEventListener("click", lukHat);
 
-            document.querySelector(".enkelt_hat h2").textContent = hat.gsx$navn.$t;
-            document.querySelector(".enkelt_hat img").src = hat.gsx$billede.$t;
-            document.querySelector(".enkelt_hat .beskrivelse").textContent = hat.gsx$beskrivelse.$t;
-            document.querySelector(".enkelt_hat .pris").textContent = `${hat.gsx$pris.$t} ,-`;
+            document.querySelector(".enkelt_hat .tekst").textContent = `Du har tilføjet ${hat.gsx$navn.$t} til din indkøbskurv`;
+
+            //            document.querySelector(".enkelt_hat h2").textContent = hat.gsx$navn.$t;
+            //            document.querySelector(".enkelt_hat img").src = hat.gsx$billede.$t;
+            //            document.querySelector(".enkelt_hat .beskrivelse").textContent = hat.gsx$beskrivelse.$t;
+            //            document.querySelector(".enkelt_hat .pris").textContent = `${hat.gsx$pris.$t} ,-`;
         }
 
         function lukHat() {
             document.querySelector("#popup").style.display = "none";
+
+            console.log("Luk Add");
+
+            //            visHatteListe();
         }
         //forsøg på popup
 
@@ -410,7 +423,7 @@
             console.log("Click Mærke");
 
             mærke = this.dataset.mærke;
-
+            document.querySelector(".uppermost").textContent = mærke;
             //            document.querySelector("h3").textContent = this.textContent;
 
             document.querySelectorAll(".mærke").forEach((elm) => {
@@ -435,7 +448,6 @@
             visHatteListe();
             console.log("Farve", farve);
         }
-
     </script>
 </body>
 
